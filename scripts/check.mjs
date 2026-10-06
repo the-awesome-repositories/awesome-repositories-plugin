@@ -27,7 +27,12 @@ for (const [file, manifest] of [
 	expect(manifest.description === root.description, `${file}: description differs from plugin.json`);
 }
 
-expect(claude.mcpServers === "./mcp.json", '.claude-plugin/plugin.json: mcpServers must be "./mcp.json"');
+// Claude's plugin directory accepts only type "http" for a remote server;
+// Agent Plugins' mcp.json requires "streamable-http". Same server, two spellings.
+expect(
+	claude.mcpServers?.[serverName]?.type === "http" && claude.mcpServers[serverName].url === server.url,
+	`.claude-plugin/plugin.json: mcpServers.${serverName} must be { "type": "http", "url": "${server.url}" }`,
+);
 expect(
 	marketplace.plugins.some((p) => p.name === name && p.source === "./"),
 	`.claude-plugin/marketplace.json: no "${name}" entry with source "./"`,

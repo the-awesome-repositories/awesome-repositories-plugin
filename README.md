@@ -97,7 +97,7 @@ One source, thin manifests:
 | `skills/awesome-repositories/SKILL.md` | the skill, the only copy of its text |
 | `mcp.json` | the MCP server, the only copy of its config |
 | `plugin.json` | the Agent Plugins manifest (Cursor, VS Code, Copilot, Codex) |
-| `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` | Claude Code (Codex reads the marketplace too); points at `mcp.json` |
+| `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` | Claude Code (Codex reads the marketplace too); repeats the URL, because Claude's plugin directory requires `type: "http"` where `mcp.json` must say `streamable-http` |
 | `gemini-extension.json` | Gemini CLI, which cannot point at `mcp.json`, so it repeats the URL |
 
 `node scripts/check.mjs` (run by CI) fails if a manifest drifts from the others:
