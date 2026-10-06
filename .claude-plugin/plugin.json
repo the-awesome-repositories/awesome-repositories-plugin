@@ -1,33 +1,20 @@
 {
   "name": "awesome-repositories",
   "displayName": "Awesome Repositories",
-  "version": "1.0.0",
-  "description": "Find the right open-source GitHub library, framework, tool or alternative. Connects Claude to the awesome-repositories.com directory (read-only MCP) and teaches it to search, verify and recommend repositories.",
+  "version": "1.1.0",
+  "description": "Find the right open-source GitHub library, framework, tool or alternative with awesome-repositories.com: its read-only MCP server plus the skill that searches and verifies it.",
   "author": {
     "name": "Awesome Repositories",
     "url": "https://awesome-repositories.com"
   },
   "homepage": "https://awesome-repositories.com/mcp",
-  "repository": "https://github.com/the-awesome-repositories/claude-plugin",
+  "repository": "https://github.com/the-awesome-repositories/awesome-repositories-plugin",
   "license": "MIT",
-  "keywords": [
-    "open-source",
-    "github",
-    "libraries",
-    "recommendations",
-    "alternatives",
-    "search",
-    "mcp"
-  ],
+  "keywords": ["open-source", "github", "libraries", "recommendations", "alternatives", "search", "mcp"],
   "icon": "./logo.png",
   "documentationUrl": "https://awesome-repositories.com/mcp",
-  "supportUrl": "https://github.com/the-awesome-repositories/claude-plugin/issues",
+  "supportUrl": "https://github.com/the-awesome-repositories/awesome-repositories-plugin/issues",
   "privacyPolicyUrl": "https://awesome-repositories.com/privacy",
   "termsOfServiceUrl": "https://awesome-repositories.com/terms",
-  "mcpServers": {
-    "awesome-repositories": {
-      "type": "http",
-      "url": "https://awesome-repositories.com/api/mcp"
-    }
-  }
+  "mcpServers": "./mcp.json"
 }

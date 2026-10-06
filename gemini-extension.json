@@ -1,0 +1,10 @@
+{
+  "name": "awesome-repositories",
+  "version": "1.1.0",
+  "description": "Find the right open-source GitHub library, framework, tool or alternative with awesome-repositories.com: its read-only MCP server plus the skill that searches and verifies it.",
+  "mcpServers": {
+    "awesome-repositories": {
+      "httpUrl": "https://awesome-repositories.com/api/mcp"
+    }
+  }
+}
