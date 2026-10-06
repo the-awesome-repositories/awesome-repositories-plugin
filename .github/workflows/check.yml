@@ -1,3 +1,7 @@
+# Checks that every agent manifest agrees with the shared source (plugin.json,
+# mcp.json): same name, version, description and server URL, and one valid skill.
+# It lives here, not as a script in the repo, because the Claude plugin directory
+# holds any script in the plugin folder that reads the manifests for review.
 name: check
 on: [push, pull_request]
 permissions:
@@ -7,7 +11,46 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: node scripts/check.mjs
+      - name: Manifests agree
+        shell: bash
+        run: |
+          set -u
+          problems=0
+          fail() { echo "- $1"; problems=1; }
+
+          name=$(jq -r .name plugin.json)
+          version=$(jq -r .version plugin.json)
+          description=$(jq -r .description plugin.json)
+          server=$(jq -r '.mcpServers | keys[0]' mcp.json)
+          url=$(jq -r ".mcpServers[\"$server\"].url" mcp.json)
+
+          for file in .claude-plugin/plugin.json gemini-extension.json; do
+            [ "$(jq -r .name "$file")" = "$name" ] || fail "$file: name differs from plugin.json ($name)"
+            [ "$(jq -r .version "$file")" = "$version" ] || fail "$file: version differs from plugin.json ($version)"
+            [ "$(jq -r .description "$file")" = "$description" ] || fail "$file: description differs from plugin.json"
+          done
+
+          # Claude's plugin directory accepts only type "http" for a remote server;
+          # Agent Plugins' mcp.json requires "streamable-http". Same server, two spellings.
+          jq -e --arg s "$server" --arg u "$url" '.mcpServers[$s] == {type: "http", url: $u}' .claude-plugin/plugin.json >/dev/null \
+            || fail ".claude-plugin/plugin.json: mcpServers.$server must be { \"type\": \"http\", \"url\": \"$url\" }"
+          jq -e --arg n "$name" 'any(.plugins[]; .name == $n and .source == "./")' .claude-plugin/marketplace.json >/dev/null \
+            || fail ".claude-plugin/marketplace.json: no \"$name\" entry with source \"./\""
+          jq -e --arg s "$server" --arg u "$url" '.mcpServers[$s].httpUrl == $u' gemini-extension.json >/dev/null \
+            || fail "gemini-extension.json: mcpServers.$server.httpUrl must be $url"
+
+          skills=(skills/*/)
+          [ "${#skills[@]}" -eq 1 ] || fail "skills/: expected one skill, found ${skills[*]}"
+          for dir in "${skills[@]}"; do
+            skill=$(basename "$dir")
+            file="skills/$skill/SKILL.md"
+            front=$(awk 'NR == 1 && $0 == "---" { inside = 1; next } inside && $0 == "---" { exit } inside' "$file")
+            [ "$(sed -n 's/^name: //p' <<<"$front")" = "$skill" ] || fail "$file: name must be \"$skill\""
+            skill_description=$(sed -n 's/^description: //p' <<<"$front")
+            [ -n "$skill_description" ] || fail "$file: description is missing"
+            [ "${#skill_description}" -le 1024 ] || fail "$file: description is ${#skill_description} chars (max 1024)"
+            grep -qF "$url" "$file" || fail "$file: does not mention $url"
+          done
+
+          [ "$problems" -eq 0 ] || exit 1
+          echo "ok: $name $version, server $url, skill ${skill:-none}"
