@@ -1,7 +1,7 @@
 {
   "name": "awesome-repositories",
   "displayName": "Awesome Repositories",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Find the right open-source GitHub library, framework, tool or alternative with awesome-repositories.com: its read-only MCP server plus the skill that searches and verifies it.",
   "author": {
     "name": "Awesome Repositories",
@@ -16,5 +16,10 @@
   "supportUrl": "https://github.com/the-awesome-repositories/awesome-repositories-plugin/issues",
   "privacyPolicyUrl": "https://awesome-repositories.com/privacy",
   "termsOfServiceUrl": "https://awesome-repositories.com/terms",
-  "mcpServers": "./mcp.json"
+  "mcpServers": {
+    "awesome-repositories": {
+      "type": "http",
+      "url": "https://awesome-repositories.com/api/mcp"
+    }
+  }
 }
