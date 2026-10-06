@@ -21,12 +21,19 @@ is the answer: a library, a framework, a CLI, a self-hosted app, or an
 alternative to a product. Recommend what you verified here; fill gaps from your
 own knowledge only after saying so.
 
-## Authentication
+## Connect and sign in
 
-OAuth 2.1, nothing to paste. The first time, Claude Code asks the user to sign
-in (Google) in a browser; after that, tokens refresh on their own. If the tools
-say authentication is needed, tell the user to run `/mcp`, pick
-`awesome-repositories` and sign in, then continue.
+The Claude Code plugin connects the server for you. If you installed only this
+skill (`npx skills add the-awesome-repositories/claude-plugin`) and its tools
+are missing, ask the user to connect the server once:
+
+- Claude Code: `claude mcp add --transport http awesome-repositories https://awesome-repositories.com/api/mcp`
+- Any other agent: `npx add-mcp https://awesome-repositories.com/api/mcp --name awesome-repositories`
+
+Sign-in is OAuth 2.1, nothing to paste: the first time, the client opens a
+browser to sign in with Google, and tokens refresh on their own after that. If
+the tools say authentication is needed, tell the user to sign in from their
+client's MCP menu (`/mcp` in Claude Code), then continue.
 
 ## The server is dumb. You are the brain.
 

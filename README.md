@@ -25,6 +25,14 @@ In Claude Code:
 /plugin install awesome-repositories@awesome-repositories
 ```
 
+In another agent (Codex, Cursor and others), install the skill with the
+[skills CLI](https://skills.sh), then connect the server:
+
+```
+npx skills add the-awesome-repositories/claude-plugin
+npx add-mcp https://awesome-repositories.com/api/mcp --name awesome-repositories
+```
+
 ## Try it
 
 After installing, ask Claude things like:
