@@ -100,7 +100,7 @@ One source, thin manifests:
 | `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` | Claude Code (Codex reads the marketplace too); repeats the URL, because Claude's plugin directory requires `type: "http"` where `mcp.json` must say `streamable-http` |
 | `gemini-extension.json` | Gemini CLI, which cannot point at `mcp.json`, so it repeats the URL |
 
-`node scripts/check.mjs` (run by CI) fails if a manifest drifts from the others:
+The CI check in `.github/workflows/check.yml` fails if a manifest drifts from the others:
 name, version, description, server URL or skill. The site serves the same
 `SKILL.md` at
 [`/.well-known/agent-skills/install-mcp/SKILL.md`](https://awesome-repositories.com/.well-known/agent-skills/install-mcp/SKILL.md),
