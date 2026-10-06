@@ -8,7 +8,7 @@
     "url": "https://awesome-repositories.com"
   },
   "homepage": "https://awesome-repositories.com/mcp",
-  "repository": "https://github.com/the-awesome-repositories/awesome-repositories",
+  "repository": "https://github.com/the-awesome-repositories/claude-plugin",
   "license": "MIT",
   "keywords": [
     "open-source",
@@ -21,6 +21,7 @@
   ],
   "icon": "./logo.png",
   "documentationUrl": "https://awesome-repositories.com/mcp",
+  "supportUrl": "https://github.com/the-awesome-repositories/claude-plugin/issues",
   "privacyPolicyUrl": "https://awesome-repositories.com/privacy",
   "termsOfServiceUrl": "https://awesome-repositories.com/terms",
   "mcpServers": {

@@ -1,0 +1,15 @@
+{
+  "name": "awesome-repositories",
+  "description": "The Awesome Repositories plugin for Claude Code.",
+  "owner": {
+    "name": "Awesome Repositories",
+    "url": "https://awesome-repositories.com"
+  },
+  "plugins": [
+    {
+      "name": "awesome-repositories",
+      "source": "./",
+      "description": "Find the right open-source GitHub library, framework, tool or alternative with awesome-repositories.com."
+    }
+  ]
+}

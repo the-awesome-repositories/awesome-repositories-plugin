@@ -16,6 +16,15 @@ open-source alternative to a product.
   candidate against its stored evidence, and ask you when the request could mean
   more than one thing.
 
+## Install
+
+In Claude Code:
+
+```
+/plugin marketplace add the-awesome-repositories/claude-plugin
+/plugin install awesome-repositories@awesome-repositories
+```
+
 ## Try it
 
 After installing, ask Claude things like:
