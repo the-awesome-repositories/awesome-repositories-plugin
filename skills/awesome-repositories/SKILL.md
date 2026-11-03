@@ -52,8 +52,10 @@ tools.
 2. **Load the taxonomy.** `get_tag_taxonomy` once per conversation: the root
    categories and their children, the tag tree the site searches with. Find
    the branch the request belongs to, then `get_tag_taxonomy` with that `path`
-   to see the levels below it. If no branch fits, the directory does not cover
-   the request: say so.
+   to see the levels below it. Branches are wide, so each tag lists only its
+   biggest children; reach the rest ("… N more under <path>") through
+   `search_metadata_tags` with that path as `scope_path`. If no branch fits,
+   the directory does not cover the request: say so.
 3. **Plan, in your head.** Commit to the single most probable reading. Write
    down the intent ("alternatives to X" means X's category), the category a
    right answer *is* (a noun precise enough to exclude neighbours: a "headless
